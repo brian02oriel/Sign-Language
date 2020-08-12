@@ -38,25 +38,30 @@ width = int(cap.get(3))
 radius = 3
 no_points = 8 * radius
 desc = LocalBinaryPatterns(no_points, radius)
+decoding = {
+	0.: "A",
+	1.: "B",
+	2.: "C"
+	}
 
 while(True):
-    _, img = cap.read()
-    img = cv2.flip(img, 1)
-    #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    cv2.rectangle(img, (width - box_size, 0), (width, box_size), (0, 0, 255), 2)
-    roi = img[5: box_size-5 , width-box_size + 5: width -5]
-    roi = cv2.resize(roi, (200, 200))
-    roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
-
-    hist = desc.describe(roi)
-    hist = np.array(hist)
-    #print(hist, len(hist))
-    model = load('classifier.joblib')
-    results = model.predict(hist.reshape(1, -1))
-    print(results)
-    cv2.imshow('Face Recognition', img)
-    if(cv2.waitKey(1) & 0xFF == ord('q')):
-        break
+	_, img = cap.read()
+	img = cv2.flip(img, 1)
+	#gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+	cv2.rectangle(img, (width - box_size, 0), (width, box_size), (0, 0, 255), 2)
+	roi = img[5: box_size-5 , width-box_size + 5: width -5]
+	roi = cv2.resize(roi, (200, 200))
+	roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+	hist = desc.describe(roi)
+	hist = np.array(hist)
+	#print(hist, len(hist))
+	model = load('classifier.joblib')
+	results = model.predict(hist.reshape(1, -1))
+	if(results[0] > -1):
+		print(decoding[results[0]])
+	cv2.imshow('Face Recognition', img)
+	if(cv2.waitKey(1) & 0xFF == ord('q')):
+		break
 
 cap.release()
 cv2.destroyAllWindows()
