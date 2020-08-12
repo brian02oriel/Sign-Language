@@ -58,7 +58,10 @@ while(True):
 	model = load('classifier.joblib')
 	results = model.predict(hist.reshape(1, -1))
 	if(results[0] > -1):
-		print(decoding[results[0]])
+		cv2.rectangle(img, (width - box_size, 0), (width, box_size), (0, 255, 0), 3)
+		cv2.putText(img, decoding[results[0]], (width - (round(box_size/2)), box_size + 25), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1, cv2.LINE_AA)
+		#print(decoding[results[0]])
+
 	cv2.imshow('Face Recognition', img)
 	if(cv2.waitKey(1) & 0xFF == ord('q')):
 		break

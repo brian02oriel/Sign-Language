@@ -23,7 +23,7 @@ while(True):
     #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     cv2.rectangle(img, (width - box_size, 0), (width, box_size), (0, 0, 255), 2)
 
-    if counter == 100:
+    if counter == 200:
             trigger = not trigger
             counter = 0
 

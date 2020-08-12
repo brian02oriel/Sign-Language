@@ -65,23 +65,19 @@ def creating_descriptor(data_path, class_name, label):
 
 def measuringPerformance(name, model, X, y, y_true, y_pred):    
     print("Measuring performance of: ", name)
-    print("\n")
     
     # Cross validation score
     print("Cross validation score: ")
     print(cross_val_score(model, X, y, scoring="accuracy"))
-    print('\n')
     
     # Confusion matrix
     y_train_predict = cross_val_predict(model, X, y, cv=3)
     print("Confusion matrix: ")
     print(confusion_matrix(y, y_train_predict))
-    print('\n')
     
     # Accuracy score
     print("Accuracy: ")
     print(accuracy_score(y_true, y_pred))
-    print('\n')
 
 
 Xba, yba = creating_descriptor('./dataset/A_gesture/', 'A_gesture', 0.0)
@@ -111,7 +107,7 @@ bash4_X = [X_train[i] for i in range(round(len(X_train) * 0.75 ),  len(X_train) 
 bash4_y = [y_train[i] for i in range(round(len(X_train) * 0.75 ),  len(X_train) )]
 #print(len(bash4_X), len(bash4_y))
 
-clf = KNeighborsClassifier(n_neighbors=5)
+clf = KNeighborsClassifier(n_neighbors=5, weights="distance")
 model1 = clf.fit(bash1_X, bash1_y)
 result = model1.predict(X_test)
 measuringPerformance("KNN BASH-1", model1, bash1_X, bash1_y, y_test, result)
