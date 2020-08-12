@@ -42,10 +42,17 @@ while(True):
     
         # Text for the counter
         text = "Collected Samples of {}: {}".format(class_name, counter)
+        cv2.putText(img, text, (3, 350), cv2.FONT_HERSHEY_SIMPLEX, 0.3, (0, 0, 255), 1, cv2.LINE_AA)
     else:
-        text = "Press 'a' to capture A samples, 'b' for B samples, 'c' for C samples and 'n' for nothing"
+        text1 = "Press 'a' to capture A samples, 'b' for B samples, 'c' for C samples"
+        text2 = "Press 'd' to capture D samples, 'e' for E samples, 'f' for F samples"
+        text3 = "Press 'n' for nothing and 'q' to quit"
+        cv2.putText(img, text1, (3, 350), cv2.FONT_HERSHEY_SIMPLEX, 0.3, (0, 0, 255), 1, cv2.LINE_AA)
+        cv2.putText(img, text2, (3, 360), cv2.FONT_HERSHEY_SIMPLEX, 0.3, (0, 0, 255), 1, cv2.LINE_AA)
+        cv2.putText(img, text3, (3, 370), cv2.FONT_HERSHEY_SIMPLEX, 0.3, (0, 0, 255), 1, cv2.LINE_AA)
+
     
-    cv2.putText(img, text, (3, 350), cv2.FONT_HERSHEY_SIMPLEX, 0.3, (0, 0, 255), 1, cv2.LINE_AA)
+    
     
     cv2.imshow('img', img)
 
@@ -66,6 +73,21 @@ while(True):
     if k == ord('c'):
         trigger = not trigger
         class_name = 'C_gesture'
+    
+    # If user press 'c' save the examples for C gesture
+    if k == ord('d'):
+        trigger = not trigger
+        class_name = 'D_gesture'
+    
+    # If user press 'c' save the examples for C gesture
+    if k == ord('e'):
+        trigger = not trigger
+        class_name = 'E_gesture'
+    
+    # If user press 'c' save the examples for C gesture
+    if k == ord('f'):
+        trigger = not trigger
+        class_name = 'F_gesture'
                 
     # If user press 'n' save the examples for nothing
     if k == ord('n'):

@@ -83,29 +83,32 @@ def measuringPerformance(name, model, X, y, y_true, y_pred):
 Xba, yba = creating_descriptor('./dataset/A_gesture/', 'A_gesture', 0.0)
 Xbb, ybb = creating_descriptor('./dataset/B_gesture/', 'B_gesture', 1.0)
 Xbc, ybc = creating_descriptor('./dataset/C_gesture/', 'C_gesture', 2.0)
+Xbd, ybd = creating_descriptor('./dataset/D_gesture/', 'D_gesture', 3.0)
+Xbe, ybe = creating_descriptor('./dataset/E_gesture/', 'E_gesture', 4.0)
+Xbf, ybf = creating_descriptor('./dataset/F_gesture/', 'F_gesture', 5.0)
 Xnothing, ynothing = creating_descriptor('./dataset/nothing/', 'nothing', -1.0)
 
 clf = KNeighborsClassifier(n_neighbors=5)
-X = Xba + Xbb + Xbc + Xnothing
-y = yba + ybb + ybc + ynothing
+X = Xba + Xbb + Xbc + Xbd + Xbe + Xbf + Xnothing
+y = yba + ybb + ybc + ybd + ybe + ybf + ynothing
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
-#print(len(X_train), len(y_train))
+print(len(X_train), len(y_train))
 
 bash1_X = [X_train[i] for i in range(0, round(len(X_train) * 0.25 ))]
 bash1_y = [y_train[i] for i in range(0, round(len(y_train) * 0.25 ))]
-#print(len(bash1_X), len(bash1_y))
+print(len(bash1_X), len(bash1_y))
 
 bash2_X = [X_train[i] for i in range(round(len(X_train) * 0.25 ),  round(len(X_train) * 0.5 ))]
 bash2_y = [y_train[i] for i in range(round(len(X_train) * 0.25 ),  round(len(X_train) * 0.5 ))]
-#print(len(bash2_X), len(bash2_y))
+print(len(bash2_X), len(bash2_y))
 
 bash3_X = [X_train[i] for i in range(round(len(X_train) * 0.5 ),  round(len(X_train) * 0.75 ))]
 bash3_y = [y_train[i] for i in range(round(len(X_train) * 0.5 ),  round(len(X_train) * 0.75 ))]
-#print(len(bash3_X), len(bash3_y))
+print(len(bash3_X), len(bash3_y))
 
 bash4_X = [X_train[i] for i in range(round(len(X_train) * 0.75 ),  len(X_train) )]
 bash4_y = [y_train[i] for i in range(round(len(X_train) * 0.75 ),  len(X_train) )]
-#print(len(bash4_X), len(bash4_y))
+print(len(bash4_X), len(bash4_y))
 
 clf = KNeighborsClassifier(n_neighbors=5, weights="distance")
 model1 = clf.fit(bash1_X, bash1_y)
