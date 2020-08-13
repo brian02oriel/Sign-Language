@@ -7,6 +7,8 @@ from os.path import isfile, join
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.svm import SVC
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import cross_val_predict
 from sklearn.metrics import confusion_matrix, accuracy_score
@@ -88,7 +90,6 @@ Xbe, ybe = creating_descriptor('./dataset/E_gesture/', 'E_gesture', 4.0)
 Xbf, ybf = creating_descriptor('./dataset/F_gesture/', 'F_gesture', 5.0)
 Xnothing, ynothing = creating_descriptor('./dataset/nothing/', 'nothing', -1.0)
 
-clf = KNeighborsClassifier(n_neighbors=5)
 X = Xba + Xbb + Xbc + Xbd + Xbe + Xbf + Xnothing
 y = yba + ybb + ybc + ybd + ybe + ybf + ynothing
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
@@ -110,7 +111,7 @@ bash4_X = [X_train[i] for i in range(round(len(X_train) * 0.75 ),  len(X_train) 
 bash4_y = [y_train[i] for i in range(round(len(X_train) * 0.75 ),  len(X_train) )]
 print(len(bash4_X), len(bash4_y))
 
-clf = KNeighborsClassifier(n_neighbors=5, weights="distance")
+clf = OneVsRestClassifier(SVC())#KNeighborsClassifier(n_neighbors=5, weights="distance")
 model1 = clf.fit(bash1_X, bash1_y)
 result = model1.predict(X_test)
 measuringPerformance("KNN BASH-1", model1, bash1_X, bash1_y, y_test, result)
