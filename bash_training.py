@@ -1,7 +1,6 @@
 import cv2
 from skimage.feature import local_binary_pattern
 import numpy as np
-from scipy.stats import itemfreq
 from os import listdir
 from os.path import isfile, join
 import pandas as pd
